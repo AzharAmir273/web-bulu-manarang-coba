@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--App created using the Boundless Web App Builder version 0.5-20160325-725c720ef368f428cbeeea499d86ea12765ba6bf-->
+<!--WebSDK version: 9b3e2ca0fdcc48d1d41bbac8f6c457f5dec7544c-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Web App</title>
+  <link rel="stylesheet" type="text/css" href="resources/css/ol.css">
+  <link rel="stylesheet" href="./resources/css/components.min.css">
+  <link rel="stylesheet" type="text/css" href="app_KGI.css">
+  <script src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Intl.~locale.en"></script>
+  <base target='_blank'>
+
+</head>
+<body>
+  <div id='main'></div>
+  <script src="full_KGI.js"></script>
+<script src="app_prebuilt.js"></script>
+<script src="./data/lyr_batasi.js"></script>
+<script src="./data/lyr_bulu_manarang.js"></script>
+<script src="./data/lyr_coba.js"></script>
+<script src="./data/lyr_datakontur.js"></script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My WebGIS</title>
+    <script src="https://openlayers.org/en/v6.5.0/build/ol.js"></script>
+    <link rel="stylesheet" href="https://openlayers.org/en/v6.5.0/css/ol.css" type="text/css">
+    <style>
+        .map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([longitude, latitude]),
+                zoom: 12
+            })
+        });
+
+        var wmsLayer = new ol.layer.Image({
+            source: new ol.source.ImageWMS({
+                url: 'http://localhost:8080/geoserver/wms',
+                params: {'LAYERS': 'workspace:layer_name'},
+                ratio: 1,
+                serverType: 'geoserver'
+            })
+        });
+
+        map.addLayer(wmsLayer);
+    </script>
+</body>
+</html>
